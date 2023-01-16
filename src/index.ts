@@ -13,15 +13,11 @@ const runServer = () => {
 
     ws.on('message', async (data) => {
       const [command, ...options] = data.toString().split(' ')
-      console.log(options, '--------------')
 
-      console.log('received: %s', command, options)
       try {
-        const cmd = commandPalette[command].call
-        // const format = commandPalette.format[command]
+        const cmd = commandPalette[command]
         const result = await cmd(options.map((o) => parseInt(o, 10)))
 
-        // console.log(options, '--------------')
         ws.send(`${command} ${result}`)
       } catch (e) {
         console.log(`Command not found: ${e}`)

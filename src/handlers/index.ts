@@ -13,15 +13,15 @@ import { positionHandler, printScreenHandler } from './screen'
 import { CommandPalette } from './index.types'
 
 const commandPalette: CommandPalette = {
-  prnt_scrn: { call: printScreenHandler },
-  draw_rectangle: { call: drawRectangleHandler },
-  draw_square: { call: drawSquareHandler },
-  draw_circle: { call: drawCircleHandler },
-  mouse_left: { call: mouseMoveLeftHandler, format: () => {} },
-  mouse_right: { call: mouseMoveRightHandler, format: () => {} },
-  mouse_down: { call: mouseMoveDownHandler, format: () => {} },
-  mouse_up: { call: mouseMoveUpHandler, format: () => {} },
-  mouse_position: { call: positionHandler, format: () => {} },
+  prnt_scrn: printScreenHandler,
+  draw_rectangle: drawRectangleHandler,
+  draw_square: drawSquareHandler,
+  draw_circle: drawCircleHandler,
+  mouse_left: mouseMoveLeftHandler,
+  mouse_right: mouseMoveRightHandler,
+  mouse_down: mouseMoveDownHandler,
+  mouse_up: mouseMoveUpHandler,
+  mouse_position: positionHandler,
 }
 
 export default commandPalette
