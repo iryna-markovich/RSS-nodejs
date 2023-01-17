@@ -1,14 +1,16 @@
 import { mouse, screen, Region, FileType } from '@nut-tree/nut-js'
 import path from 'path'
 import fs from 'fs/promises'
-import { CommandPalette } from '../index.types'
 
-export const positionHandler = async () => {
+export const positionHandler = async (): Promise<string> => {
   const { x, y } = await mouse.getPosition()
+
   return `${x}px,${y}px`
 }
 
-export const printScreenHandler = async () => {
+export const printScreenHandler = async (): Promise<string> => {
+  let imgUrl = ''
+
   const pathToFile = path.resolve(__dirname, 'img.png')
 
   try {
@@ -16,10 +18,10 @@ export const printScreenHandler = async () => {
     const area = new Region(x - 100, y - 100, 200, 200)
 
     await screen.captureRegion('img', area, '.png' as FileType, __dirname)
-    const imgUrl = await fs.readFile(pathToFile, 'base64')
-
-    return imgUrl
+    imgUrl = await fs.readFile(pathToFile, 'base64')
   } catch (e) {
     console.error(e)
   }
+
+  return imgUrl
 }
