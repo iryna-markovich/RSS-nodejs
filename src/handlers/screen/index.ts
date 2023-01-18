@@ -1,6 +1,5 @@
-import { mouse, screen, Region, FileType } from '@nut-tree/nut-js'
-import path from 'path'
-import fs from 'fs/promises'
+import { mouse, screen, Region } from '@nut-tree/nut-js'
+import Jimp from 'jimp'
 
 export const positionHandler = async (): Promise<string> => {
   const { x, y } = await mouse.getPosition()
@@ -11,14 +10,15 @@ export const positionHandler = async (): Promise<string> => {
 export const printScreenHandler = async (): Promise<string> => {
   let imgUrl = ''
 
-  const pathToFile = path.resolve(__dirname, 'img.png')
-
   try {
     const { x, y } = await mouse.getPosition()
     const area = new Region(x - 100, y - 100, 200, 200)
+    const img = await screen.grabRegion(area)
 
-    await screen.captureRegion('img', area, '.png' as FileType, __dirname)
-    imgUrl = await fs.readFile(pathToFile, 'base64')
+    const jimpImg = new Jimp(img)
+    const buffer = await jimpImg.getBufferAsync(Jimp.MIME_PNG)
+
+    return buffer.toString('base64')
   } catch (e) {
     console.error(e)
   }
