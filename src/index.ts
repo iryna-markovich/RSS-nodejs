@@ -1,7 +1,7 @@
 import { WebSocketServer, createWebSocketStream } from 'ws'
 import commandPalette from './handlers/index'
 
-const PORT = 8080
+const PORT = 3000 || 8080
 const options = { host: 'localhost', port: PORT }
 
 const wss = new WebSocketServer(options, () => {
